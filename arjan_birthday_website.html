@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffe8f1">
+  <title>A Little Birthday Surprise 🎂</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; overflow-x: hidden;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      color: #593b50;
+      background: linear-gradient(135deg, #fff0f6, #f1eaff 55%, #e8f7ff);
+      display: grid; place-items: center; padding: 24px;
+    }
+    .balloon {
+      position: fixed; bottom: -130px; width: 54px; height: 68px;
+      border-radius: 50% 50% 46% 46%; opacity: .55;
+      animation: floatUp 13s linear infinite; z-index: 0;
+    }
+    .balloon::after {
+      content: ""; position: absolute; left: 25px; top: 66px;
+      height: 48px; border-left: 1px solid #a98ba0;
+    }
+    .b1 { left: 8%; background: #ffc1d8; animation-delay: 0s; }
+    .b2 { left: 82%; background: #cbbcff; animation-delay: 4s; }
+    .b3 { left: 48%; background: #bde8f5; animation-delay: 8s; }
+    @keyframes floatUp { to { transform: translateY(-125vh) rotate(12deg); } }
+    .card {
+      position: relative; z-index: 1; width: min(100%, 520px);
+      background: rgba(255,255,255,.88); border: 2px solid #fff;
+      border-radius: 28px; padding: 34px 25px; text-align: center;
+      box-shadow: 0 18px 55px rgba(117, 78, 117, .16);
+    }
+    .cake { font-size: 58px; margin-bottom: 8px; }
+    h1 { margin: 8px 0 12px; color: #b34e83; font-size: clamp(2rem, 8vw, 2.7rem); }
+    .subtitle { font-size: 1.05rem; line-height: 1.65; margin: 0 auto 22px; max-width: 390px; }
+    .name {
+      display: inline-block; margin: 8px 0 18px; padding: 9px 22px;
+      border-radius: 999px; background: #ffe2ee; color: #a83d75;
+      font-size: 1.35rem; font-weight: 800; letter-spacing: 3px;
+    }
+    button {
+      border: 0; border-radius: 999px; padding: 13px 22px;
+      margin: 7px; font-size: 1rem; font-weight: 700; cursor: pointer;
+      transition: transform .18s, box-shadow .18s;
+    }
+    button:hover { transform: translateY(-2px); box-shadow: 0 7px 16px #d9bfd0; }
+    .primary { color: white; background: #e879a8; }
+    .secondary { color: #76546c; background: #eee5fa; }
+    #surprise { display: none; margin-top: 24px; padding: 20px; border-radius: 20px; background: #fff2f7; line-height: 1.7; }
+    #reply { min-height: 28px; margin-top: 15px; color: #a34e7c; font-weight: 700; }
+    .small { color: #9a7f93; font-size: .85rem; margin-top: 24px; }
+    .confetti {
+      position: fixed; top: -12px; width: 9px; height: 13px;
+      animation: fall 3.2s linear forwards; z-index: 5; pointer-events: none;
+    }
+    @keyframes fall { to { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+  </style>
+</head>
+<body>
+  <div class="balloon b1"></div><div class="balloon b2"></div><div class="balloon b3"></div>
+  <main class="card">
+    <div class="cake">🎂</div>
+    <h1>Happy Birthday!</h1>
+    <p class="subtitle">A little page, a little surprise, and lots of good wishes for your special day.</p>
+    <div class="name">ARJAN</div>
+    <p class="subtitle">Ready to open your birthday surprise? ✨</p>
+    <div>
+      <button class="primary" id="yesBtn">Yes 💖</button>
+      <button class="secondary" id="noBtn">Not yet 🙈</button>
+    </div>
+    <div id="reply" aria-live="polite"></div>
+    <section id="surprise">
+      <div style="font-size:2.5rem">🎉💗🎈</div>
+      <h2 style="color:#b34e83">A special wish for you!</h2>
+      <p>May your day be full of laughter, happiness, unforgettable moments, and all the little things that make you smile. Keep shining, keep being amazing, and may this year bring you wonderful surprises. 🥳</p>
+      <p><strong>Have the best birthday ever! 💕</strong></p>
+    </section>
+    <p class="small">Made with lots of birthday wishes ✨</p>
+  </main>
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const surprise = document.getElementById('surprise');
+    const reply = document.getElementById('reply');
+
+    function celebrate() {
+      const colors = ['#f48fb1', '#b39ddb', '#80deea', '#ffd166', '#a5d6a7'];
+      for (let i = 0; i < 85; i++) {
+        const piece = document.createElement('i');
+        piece.className = 'confetti';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = Math.random() * .8 + 's';
+        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 4200);
+      }
+    }
+
+    yesBtn.addEventListener('click', () => {
+      surprise.style.display = 'block';
+      reply.textContent = 'Yay! Your surprise is ready! 💝';
+      celebrate();
+    });
+
+    noBtn.addEventListener('click', () => {
+      reply.textContent = 'No worries! Take your time… the surprise will wait. 🙈💗';
+    });
+  </script>
+</body>
+</html>
